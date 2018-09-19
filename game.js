@@ -25,7 +25,16 @@ function startGame(){
  * grid spans
  */
 function createBoard(){
+  // This is written in the dice.js file (so this file isn't cluttered
+  // with rng and all that)
+  var letters = getLetterList();
 
+  for(var i = 0; i < letters.length; i++){
+    var element = document.getElementById('piece_' + i);
+    element.innerHTML = letters[i];
+  }
+
+  console.log('Generated board ' + letters._seed);
 }
 
 /**

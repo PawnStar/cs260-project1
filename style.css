@@ -18,6 +18,17 @@
   vertical-align: middle;
   max-width: calc((100% - 25) / 4);
   max-height: calc((100% - 25) / 4);
+  cursor: pointer;
+}
+
+#board span.disabled{
+  /*
+    This doesn't prevent it from triggering click events, but it does prevent the
+    cursor from appearing like it can be clicked.
+  */
+  pointer-events: none;
+  background: lightgray;
+  color: gray;
 }
 
 #wordList{

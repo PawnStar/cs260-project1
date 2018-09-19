@@ -147,7 +147,27 @@ function rotate(direction){
 if(! window.Promise){
   alert("Browser unsupported: No Promise constructor!");
 } else {
+  // Be sure to attach functions to click listeners down here
   document.getElementById('startGame').addEventListener('click', startGame);
+
+  // If your function needs a parameter, you can declare an inline function like this, and then call
+  // the larger function with the correct parameters
   document.getElementById('rotateClock').addEventListener('click', function(){rotate('clockwise')});
   document.getElementById('rotateCounter').addEventListener('click', function(){rotate('counterclockwise')});
+  document.getElementById('piece_0').addEventListener('click', function(){ handleLetterClick(0); })
+  document.getElementById('piece_1').addEventListener('click', function(){ handleLetterClick(1); })
+  document.getElementById('piece_2').addEventListener('click', function(){ handleLetterClick(2); })
+  document.getElementById('piece_3').addEventListener('click', function(){ handleLetterClick(3); })
+  document.getElementById('piece_4').addEventListener('click', function(){ handleLetterClick(4); })
+  document.getElementById('piece_5').addEventListener('click', function(){ handleLetterClick(5); })
+  document.getElementById('piece_6').addEventListener('click', function(){ handleLetterClick(6); })
+  document.getElementById('piece_7').addEventListener('click', function(){ handleLetterClick(7); })
+  document.getElementById('piece_8').addEventListener('click', function(){ handleLetterClick(8); })
+  document.getElementById('piece_9').addEventListener('click', function(){ handleLetterClick(9); })
+  document.getElementById('piece_10').addEventListener('click', function(){ handleLetterClick(10); })
+  document.getElementById('piece_11').addEventListener('click', function(){ handleLetterClick(11); })
+  document.getElementById('piece_12').addEventListener('click', function(){ handleLetterClick(12); })
+  document.getElementById('piece_13').addEventListener('click', function(){ handleLetterClick(13); })
+  document.getElementById('piece_14').addEventListener('click', function(){ handleLetterClick(14); })
+  document.getElementById('piece_15').addEventListener('click', function(){ handleLetterClick(15); })
 }

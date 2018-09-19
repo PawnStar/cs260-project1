@@ -1,0 +1,56 @@
+#board {
+  display: inline-block;
+  border-collapse: collapse;  
+  float: left;
+}
+
+#board div {
+  display: table-row;
+}
+
+#board span {
+  display: table-cell;
+  width: 100px;
+  height: 100px;
+  border: solid 5px gray;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
+  max-width: calc((100% - 25) / 4);
+  max-height: calc((100% - 25) / 4);
+}
+
+#wordList{
+  display: inline-block;
+  width: 400px;
+  height: 425px;
+  margin-left: 30px;
+}
+
+/**
+ * Table rotation - add any of these classes
+ * to the board div in order to rotate the board
+ */
+#board.rot90{
+  transform: rotate(90deg);
+}
+
+#board.rot90 span {
+  transform: rotate(-90deg);
+}
+
+#board.rot180{
+  transform: rotate(180deg);
+}
+
+#board.rot180 span {
+  transform: rotate(-180deg);
+}
+
+#board.rot270{
+  transform: rotate(270deg);
+}
+
+#board.rot270 span {
+  transform: rotate(-270deg);
+}

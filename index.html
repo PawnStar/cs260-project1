@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="style.css"/>
   </head>
   <body>
+    <div id="fullscreenCard">
+      <h1>Loading dictionary . . .</h1>
+    </div>
     <h1>Boggle</h1>
     <div id="board">
       <div>
@@ -47,7 +50,8 @@
     </div>
 
     <p>Debug buttons:</p>
-    <button id="generateBoard" onclick="createBoard();">Generate Board</button>
+    <button onclick="gameEnd();">End game</button>
+    <button onclick="createBoard();">Generate board</button>
 
     <script type="text/javascript" src="dice.js"></script>
     <script type="text/javascript" src="game.js"></script>

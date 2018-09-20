@@ -1,3 +1,33 @@
+#fullscreenCard {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+  background: white;
+}
+
+#fullscreenCard ~ * {
+  display: none;
+  height: 0;
+  overflow: hidden;
+}
+
+#fullscreenCard table{
+  width: 200px;
+  margin: 30px auto;
+}
+
+#fullscreenCard td:first-child{
+  text-align: left;
+}
+
+#fullscreenCard .invalid{
+  text-decoration: line-through red;
+  color: red;
+}
+
 #board {
   display: inline-block;
   border-collapse: collapse;  

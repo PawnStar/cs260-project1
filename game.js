@@ -44,7 +44,7 @@ function createBoard(){
  * should add its letter(s) to the current word span, and disable
  * the clicked grid span.  Finally, it should set the clicked
  * element to the lastClickedSpan variable.
- * 
+ *
  * If the current word has at least three letters, it should
  * enable the add word button - otherwise it should disable it.
  */
@@ -58,14 +58,14 @@ function handleLetterClick(index){
  * well as check for adjacency to the lastClickedSpan.
  */
 function canClickLetter(index){
-  
+
 }
 
 /**
  * This function puts the maximum number of seconds into the
  * secondsLeft variable, and then sets a timeout for the
  * updateTimer function to be called in 1 second.
- * 
+ *
  * It should save the returned timeout variable to the
  * timerTimeout variable.
  */
@@ -78,7 +78,7 @@ function startTimer(){
  * span) to the wordsFound <ul>, change all the gridpiece spans
  * to not be disabled, and set the lastClickedSpan variable
  * back to null.
- * 
+ *
  * Additionally, this function should disable the add word button.
  */
 function addWordToList(){
@@ -88,15 +88,65 @@ function addWordToList(){
 /**
  * This function is called if the user clicks our "end game" button,
  * or if the timer reaches 0.
- * 
+ *
  * It should use clearTimeout on the timerTimeout variable (in
  * case we ended early - we don't want to get called twice),
  * check each word for whether or not they are valid, and
  * once all words have been checked it should compute a score
  * compute and display a score.
  */
+const getScoreForWord = word=>[0,0,0,1,1,2,3,4,11,11,11,11,11,11,11,11,11,11,11][word.length]
 function gameEnd(){
+  let words =
+    // Convert NodeList to element array
+    [].slice.call(document.querySelectorAll('#wordsFound li'))
+    // Convert element array to string array
+    .map(elem=>elem.innerHTML)
+    .map(word=>({
+      word: word,
+      score: checkWord(word)?getScoreForWord(word):0
+    }))
 
+  let total = words.map(word=>word.score).reduce((p,c)=>(p+c), 0);
+  console.log(words);
+
+  // Create score fullscreen card
+  let div = document.createElement('div')
+  div.id = 'fullscreenCard';
+  div.innerHTML = '<h1>Score: ' + total + '</h1>'
+
+  // List each word + score
+  let table = document.createElement('table');
+  for(let word of words){
+    let tr = document.createElement('tr')
+    tr.innerHTML = '<td' + (!word.score?' class="invalid"':'') + '>' + word.word + '</td><td>' + word.score + '</td>'
+    table.appendChild(tr);
+  }
+  if(words.length > 0)
+    div.appendChild(table);
+  else{
+    let p = document.createElement('p');
+    p.innerHTML = 'No words found';
+    div.appendChild(p);
+  }
+  
+  // Create button
+  let button = document.createElement('button')
+  button.innerHTML = 'New Game';
+  button.addEventListener('click', ()=>{
+    // When clicked, remove card
+    document.getElementById('fullscreenCard').remove();
+    startGame();
+  })
+
+  // Add button to div
+  div.appendChild(button);
+
+  // Add div to page (first element because CSS rules)
+  document.body.insertBefore(
+    div,
+    document.body.firstChild
+  );
 }
 
 /**
@@ -104,11 +154,11 @@ function gameEnd(){
  * It should decrement secondsLeft by 1, update the timer
  * display span, and then set another timeout for it to be
  * called in 1 second.
- * 
+ *
  * If the secondsLeft variable gets to 0, this function
  * should not set a timeout, but should instead call
  * gameEnd().
- * 
+ *
  * (Just like the startTimer function, this should save the
  * returned timeout into the timerTimeout variable)
  */
@@ -117,11 +167,18 @@ function updateTimer(){
 }
 
 /**
- * This function returns a promise that resolves with a
- * boolean value for whether or not the given word is valid.
+ * This function returns true/false for whether the word
+ * is valid.
  */
+let dictionary; // Gets set by load function at end of file
 function checkWord(word){
+  if(!dictionary)
+    throw new Error('Dictionary not loaded yet');
+  
+  if(dictionary[word])
+    return true;
 
+  return false;
 }
 
 function rotate(direction){
@@ -179,4 +236,19 @@ if(! window.Promise){
   document.getElementById('piece_13').addEventListener('click', function(){ handleLetterClick(13); })
   document.getElementById('piece_14').addEventListener('click', function(){ handleLetterClick(14); })
   document.getElementById('piece_15').addEventListener('click', function(){ handleLetterClick(15); })
+}
+
+// Check for fetch() support
+if(! typeof fetch === 'function'){
+  alert('Browser unsupported: no fetch() api');
+} else {
+  // Run at pageload to load dictionary
+  fetch('https://raw.githubusercontent.com/dwyl/english-words/master/words_dictionary.json')
+  .then(response=>response.json())
+  .then(response=>{
+    dictionary = response;
+    console.log('dictionary loaded');
+    document.getElementById('fullscreenCard').remove();
+    return dictionary;
+  })
 }

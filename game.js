@@ -175,7 +175,8 @@ function checkWord(word){
   if(!dictionary)
     throw new Error('Dictionary not loaded yet');
   
-  if(dictionary[word])
+  // See if dictionary has word (all dictionary words lower case)
+  if(dictionary[word.toLowerCase()])
     return true;
 
   return false;

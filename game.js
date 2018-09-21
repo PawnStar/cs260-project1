@@ -69,10 +69,6 @@ function createBoard(){
  * If the current word has at least three letters, it should
  * enable the add word button - otherwise it should disable it.
  */
-<<<<<<< HEAD
-function handleLetterClick(index){
-  
-=======
 function handleLetterClick(index) {
     
   var span = document.getElementById("piece_" + index);
@@ -90,7 +86,6 @@ function handleLetterClick(index) {
    //update last clicked span
    lastClickedSpan = index; 
   }
->>>>>>> 98b6097122da7fe41a2961d5cb9e8af0f61a69c6
 }
 
 /**
@@ -167,7 +162,6 @@ function startTimer(){
  * Additionally, this function should disable the add word button.
  */
 function addWordToList(){
-<<<<<<< HEAD
   var currentWord = "<li>";
   for (var i = 0; i < wordInProgress.length; i++){
     currentWord += wordInProgress[i]
@@ -179,7 +173,6 @@ function addWordToList(){
     wordsFound.innerHTML += currentWord;
 
     lastClickedSpan = null;
-=======
   
   var currentWord = document.getElementById("currentWord").innerHTML;
 
@@ -189,7 +182,6 @@ function addWordToList(){
     var wordList = document.getElementById("wordList");
     var wordToAdd = "<li>" + currentWord + "</li>";
     wordList.innerHTML += wordToAdd;
->>>>>>> 98b6097122da7fe41a2961d5cb9e8af0f61a69c6
 
     //re-enable squares
     lastClickedSpan = null;

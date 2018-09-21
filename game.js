@@ -17,6 +17,7 @@ var timerTimeout = null;
  * the current word span.  It also should disable the add word button
  */
 function startGame(){
+    startTimer();
 
 }
 
@@ -70,7 +71,8 @@ function canClickLetter(index){
  * timerTimeout variable.
  */
 function startTimer(){
-
+    secondsLeft = 100000;
+    timerTimout = setTimeout(updateTimer(), 1000);
 }
 
 /**
@@ -163,7 +165,17 @@ function gameEnd(){
  * returned timeout into the timerTimeout variable)
  */
 function updateTimer(){
+ 
+  if(secondsLeft == 0){
+    gameEnd();
+  }
+  else{
+    secondsLeft = secondsLeft-1;
+    var timer = document.getElementById('timer');
+    timer.innerHTML= secondsLeft; //Update span inner HTML
 
+    timerTimeout = setTimeout(updateTimer(), 1000);
+  }
 }
 
 /**

@@ -61,12 +61,14 @@
   color: gray;
 }
 
+
 #wordList{
   display: inline-block;
   width: 400px;
   height: 425px;
   margin-left: 30px;
 }
+
 
 /**
  * Table rotation - add any of these classes

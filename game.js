@@ -28,13 +28,13 @@ function startGame(){
       var span = document.getElementById("piece_" + wordInProgress[i]);
       span.classList.remove("disabled");
     }
- 
+
     wordInProgress = [];
- 
+
     //clear current word span
     var currentWord = document.getElementById("currentWord");
     currentWord.innerHTML = "";
-    
+
     //clear wordList
     document.getElementById('wordsFound').innerHTML = '';
 
@@ -70,12 +70,12 @@ function createBoard(){
  * enable the add word button - otherwise it should disable it.
  */
 function handleLetterClick(index) {
-    
+
   var span = document.getElementById("piece_" + index);
   var letter = span.innerHTML;
 
   if( canClickLetter(index) ) {
-   
+
    wordInProgress.push(index);
    var currentWord = document.getElementById("currentWord");
    currentWord.innerHTML += letter;
@@ -84,7 +84,7 @@ function handleLetterClick(index) {
    span.classList.add("disabled");
 
    //update last clicked span
-   lastClickedSpan = index; 
+   lastClickedSpan = index;
   }
 }
 
@@ -104,9 +104,9 @@ function canClickLetter(index){
 }
 
 /**
- * This function checks whether the 
- * index is adjacent to the index of the 
- * last clicked span. Returns true if so, 
+ * This function checks whether the
+ * index is adjacent to the index of the
+ * last clicked span. Returns true if so,
  * false otherwise
  */
 function isAdjacent (index) {
@@ -133,6 +133,12 @@ function isAdjacent (index) {
         || difference == downLeft
         || difference == upRight
         || difference == upLeft  ) {
+
+          // Check for wrap-around
+          if(index % 4 == 0 && lastClickedSpan % 4 == 3)
+            return false
+          if(index % 4 == 3 && lastClickedSpan % 4 == 0)
+            return false;
 
           return true;
       }
@@ -173,11 +179,11 @@ function addWordToList(){
     wordsFound.innerHTML += currentWord;
 
     lastClickedSpan = null;
-  
+
   var currentWord = document.getElementById("currentWord").innerHTML;
 
   if(currentWord.length >= 3) {
-    
+
     //add word to list
     var wordList = document.getElementById("wordList");
     var wordToAdd = "<li>" + currentWord + "</li>";
@@ -242,7 +248,7 @@ function gameEnd(){
     p.innerHTML = 'No words found';
     div.appendChild(p);
   }
-  
+
   // Create button
   let button = document.createElement('button')
   button.innerHTML = 'New Game';
@@ -276,7 +282,7 @@ function gameEnd(){
  * returned timeout into the timerTimeout variable)
  */
 function updateTimer(){
- 
+
   if(secondsLeft == 0){
     gameEnd();
   }
@@ -310,7 +316,7 @@ let dictionary; // Gets set by load function at end of file
 function checkWord(word){
   if(!dictionary)
     throw new Error('Dictionary not loaded yet');
-  
+
   // See if dictionary has word (all dictionary words lower case)
   if(dictionary[word.toLowerCase()])
     return true;

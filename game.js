@@ -16,7 +16,11 @@ var timerTimeout = null;
  * clickable again (removes the 'disabled' class), and clears
  * the current word span.  It also should disable the add word button
  */
-function startGame(){}
+function startGame(){
+    startTimer();
+  createBoard();
+  document.getElementById('wordsFound').innerHTML = '';
+}
 
 /**
  * This function generates a set of letters and puts them in the
@@ -126,7 +130,8 @@ function isAdjacent (index) {
  * timerTimeout variable.
  */
 function startTimer(){
-
+    secondsLeft = 180;
+    timerTimout = setTimeout(updateTimer, 1000);
 }
 
 /**
@@ -143,12 +148,20 @@ function addWordToList(){
 
   if(currentWord.length >= 3) {
     
-
     //add word to list
     var wordList = document.getElementById("wordList");
     var wordToAdd = "<li>" + currentWord + "</li>";
     wordList.innerHTML += wordToAdd;
 
+    //re-enable squares
+    lastClickedSpan = null;
+
+    for (var i = 0; i < wordInProgress.length; i++) {
+      var span = document.getElementById("piece_" + wordInProgress[i]);
+      span.classList.remove("disabled");
+    }
+
+    wordInProgress = [];
   }
 }
 
@@ -164,6 +177,10 @@ function addWordToList(){
  */
 const getScoreForWord = word=>[0,0,0,1,1,2,3,4,11,11,11,11,11,11,11,11,11,11,11][word.length]
 function gameEnd(){
+  // Clean up a bit
+  clearTimeout(timerTimeout);
+  document.getElementById('timer').className = '';
+
   let words =
     // Convert NodeList to element array
     [].slice.call(document.querySelectorAll('#wordsFound li'))
@@ -175,7 +192,6 @@ function gameEnd(){
     }))
 
   let total = words.map(word=>word.score).reduce((p,c)=>(p+c), 0);
-  console.log(words);
 
   // Create score fullscreen card
   let div = document.createElement('div')
@@ -230,7 +246,30 @@ function gameEnd(){
  * returned timeout into the timerTimeout variable)
  */
 function updateTimer(){
+ 
+  if(secondsLeft == 0){
+    gameEnd();
+  }
+  else{
+    secondsLeft = secondsLeft-1;
 
+    var minutes = Math.floor(secondsLeft/60)
+    var seconds = secondsLeft % 60;
+
+    if(minutes < 10)
+      minutes = '0' + minutes;
+
+    if(seconds < 10)
+      seconds = '0' + seconds;
+
+    if(minutes < 1)
+      document.getElementById('timer').className = 'warning';
+
+    document.getElementById('timerMinutes').innerHTML = minutes;
+    document.getElementById('timerSeconds').innerHTML = seconds;
+
+    timerTimeout = setTimeout(updateTimer, 1000);
+  }
 }
 
 /**

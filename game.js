@@ -162,17 +162,20 @@ function startTimer(){
  * Additionally, this function should disable the add word button.
  */
 function addWordToList(){
-  var currentWord = "<li>";
-  for (var i = 0; i < wordInProgress.length; i++){
-    currentWord += wordInProgress[i]
-  }
+  
+  // var currentWord = "<li>";
+  // for (var i = 0; i < wordInProgress.length; i++){
+  //   var index = document.getElementById("piece_" + wordInProgress[i]);
+  //   var addletter
+  //   currentWord += 
+  // }
 
-  currentWord += "</li>";
-    /**var currentWord = document.getElementById("currentWord");*/
-    var wordsFound = document.getElementById("wordsFound");
-    wordsFound.innerHTML += currentWord;
+  // currentWord += "</li>";
+  //   /**var currentWord = document.getElementById("currentWord");*/
+  //   var wordsFound = document.getElementById("wordsFound");
+  //   wordsFound.innerHTML += currentWord;
 
-    lastClickedSpan = null;
+  //   lastClickedSpan = null;
   
   var currentWord = document.getElementById("currentWord").innerHTML;
 

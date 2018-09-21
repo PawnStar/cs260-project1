@@ -115,7 +115,6 @@ function gameEnd(){
     }))
 
   let total = words.map(word=>word.score).reduce((p,c)=>(p+c), 0);
-  console.log(words);
 
   // Create score fullscreen card
   let div = document.createElement('div')

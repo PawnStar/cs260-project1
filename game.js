@@ -18,7 +18,24 @@ var timerTimeout = null;
  */
 function startGame(){
     startTimer();
+    createBoard();
+    wordInProgress = [];
 
+    //reset gridspans
+    lastClickedSpan = null;
+
+    for (var i = 0; i < wordInProgress.length; i++) {
+      var span = document.getElementById("piece_" + wordInProgress[i]);
+      span.classList.remove("disabled");
+    }
+ 
+    wordInProgress = [];
+ 
+    //clear current word span
+    var currentWord = document.getElementById("currentWord");
+    currentWord.innerHTML = "";
+
+    document.getElementById("addWord").addEventListener("click", addWordToList)
 }
 
 /**
@@ -50,7 +67,7 @@ function createBoard(){
  * enable the add word button - otherwise it should disable it.
  */
 function handleLetterClick(index){
-
+  
 }
 
 /**
@@ -84,6 +101,17 @@ function startTimer(){
  * Additionally, this function should disable the add word button.
  */
 function addWordToList(){
+  var currentWord = "<li>";
+  for (var i = 0; i < wordInProgress.length; i++){
+    currentWord += wordInProgress[i]
+  }
+
+  currentWord += "</li>";
+    /**var currentWord = document.getElementById("currentWord");*/
+    var wordsFound = document.getElementById("wordsFound");
+    wordsFound.innerHTML += currentWord;
+
+    lastClickedSpan = null;
 
 }
 

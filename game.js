@@ -18,6 +18,11 @@ var timerTimeout = null;
  */
 function startGame(){
 
+  document.getElementById("addWord").addEventListener('click', addWordToList)
+  
+
+
+
 }
 
 /**
@@ -48,8 +53,32 @@ function createBoard(){
  * If the current word has at least three letters, it should
  * enable the add word button - otherwise it should disable it.
  */
-function handleLetterClick(index){
+function handleLetterClick(index) {
+    
+  var span = document.getElementById("piece_" + index);
+  var letter = span.innerHTML;
 
+  if( canClickLetter(index) ) {
+   
+   wordInProgress.push(letter);
+   var currentWord = document.getElementById("currentWord");
+   currentWord.innerHTML += letter;
+
+   //disable the clicked grid span
+   span.classList.add("disabled");
+
+   //update last clicked span
+   lastClickedSpan = index;
+
+  //  if current word has min 3 letters, enable add word button
+   if(wordInProgress.length >= 3) {
+     document.getElementById(addWord).disabled = false;
+   }
+   else {
+    document.getElementById(addWord).disabled = true;
+   }
+   
+  }
 }
 
 /**
@@ -59,6 +88,49 @@ function handleLetterClick(index){
  */
 function canClickLetter(index){
 
+  var span = document.getElementById("piece_" + index);
+
+  if (isAdjacent(index) && span.className != "disabled" ) {
+    return true;
+  }
+  else { return false; }
+}
+
+/**
+ * This function checks whether the 
+ * index is adjacent to the index of the 
+ * last clicked span. Returns true if so, 
+ * false otherwise
+ */
+function isAdjacent (index) {
+
+    if(lastClickedSpan == null) {
+      return true;
+    }
+    else {
+      var down = 4;
+      var up = -4;
+      var right = 1;
+      var left = -1;
+      var downRight = 5;
+      var downLeft = 3;
+      var upRight = -3;
+      var upLeft = -5;
+      var difference = lastClickedSpan - index;
+
+      if(difference == down
+        || difference == up
+        || difference == right
+        || difference == left
+        || difference == downRight
+        || difference == downLeft
+        || difference == upRight
+        || difference == upLeft  ) {
+
+          return true;
+      }
+      else { return false; }
+  }
 }
 
 /**
@@ -82,7 +154,17 @@ function startTimer(){
  * Additionally, this function should disable the add word button.
  */
 function addWordToList(){
-
+  
+  var currentWord = "<li>";
+  for (var i = 0; i < wordInProgress.length; i++){
+    currentWord += wordInProgress[i]
+  }
+ 
+  currentWord += "</li>";
+  /**var currentWord = document.getElementById("currentWord");*/
+  var wordsFound = document.getElementById("wordsFound");
+  wordsFound.innerHTML += currentWord;
+  lastClickedSpan = null;
 }
 
 /**

@@ -1,3 +1,10 @@
+body {
+  background: #ffecb6;
+  font-family: 'Raleway', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 #fullscreenCard {
   position: absolute;
   top: 0;
@@ -5,7 +12,7 @@
   left: 0;
   bottom: 0;
   text-align: center;
-  background: white;
+  background: inherit;
 }
 
 #fullscreenCard ~ * {
@@ -32,6 +39,7 @@
   display: inline-block;
   border-collapse: collapse;  
   float: left;
+  background: white;
 }
 
 #board div {
@@ -40,14 +48,12 @@
 
 #board span {
   display: table-cell;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border: solid 5px gray;
   font-size: 30px;
   text-align: center;
   vertical-align: middle;
-  max-width: calc((100% - 25) / 4);
-  max-height: calc((100% - 25) / 4);
   cursor: pointer;
 }
 
@@ -65,10 +71,75 @@
 #wordList{
   display: inline-block;
   width: 400px;
-  height: 425px;
+  height: 345px;
   margin-left: 30px;
 }
 
+#timer {
+  background: #1a1a1a;
+  color: white;
+  padding: 10px;
+  font-size: 36px;
+  font-family: monospace;
+  display: block;
+  margin: 30px auto;
+  width: 150px;
+  text-align: center;
+  border: #754300 solid 5px;
+  border-radius: 3px;
+}
+
+#timer.warning{
+  animation: warning 2.5s infinite;
+}
+
+@keyframes warning{
+  0% {
+    background: #1a1a1a;
+  }
+
+  50% {
+    background: #b62b2b;
+  }
+}
+
+button{
+  padding: 10px;
+  border-radius: 3px;
+  border: none;
+  background: #754300;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+button::after{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  content: ' ';
+  opacity: .2;
+}
+
+button:hover::after{
+  background: rgb(255,255,255);
+}
+
+button:focus::after{
+  background: rgb(255, 211, 135);
+  opacity: .4;
+}
+
+button:active::after{
+  background: rgb(0,0,0);
+}
+
+#buttonContainer {
+  margin: 30px;
+  text-align: center;
+}
 
 /**
  * Table rotation - add any of these classes

@@ -34,6 +34,9 @@ function startGame(){
     //clear current word span
     var currentWord = document.getElementById("currentWord");
     currentWord.innerHTML = "";
+    
+    //clear wordList
+    document.getElementById('wordsFound').innerHTML = '';
 
     document.getElementById("addWord").addEventListener("click", addWordToList)
 }
@@ -127,6 +130,10 @@ function addWordToList(){
  */
 const getScoreForWord = word=>[0,0,0,1,1,2,3,4,11,11,11,11,11,11,11,11,11,11,11][word.length]
 function gameEnd(){
+  // Clean up a bit
+  clearTimeout(timerTimeout);
+  document.getElementById('timer').className = '';
+
   let words =
     // Convert NodeList to element array
     [].slice.call(document.querySelectorAll('#wordsFound li'))
@@ -138,7 +145,6 @@ function gameEnd(){
     }))
 
   let total = words.map(word=>word.score).reduce((p,c)=>(p+c), 0);
-  console.log(words);
 
   // Create score fullscreen card
   let div = document.createElement('div')
@@ -199,8 +205,21 @@ function updateTimer(){
   }
   else{
     secondsLeft = secondsLeft-1;
-    var timer = document.getElementById('timer');
-    timer.innerHTML= secondsLeft; //Update span inner HTML
+
+    var minutes = Math.floor(secondsLeft/60)
+    var seconds = secondsLeft % 60;
+
+    if(minutes < 10)
+      minutes = '0' + minutes;
+
+    if(seconds < 10)
+      seconds = '0' + seconds;
+
+    if(minutes < 1)
+      document.getElementById('timer').className = 'warning';
+
+    document.getElementById('timerMinutes').innerHTML = minutes;
+    document.getElementById('timerSeconds').innerHTML = seconds;
 
     timerTimeout = setTimeout(updateTimer, 1000);
   }

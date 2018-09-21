@@ -69,8 +69,28 @@ function createBoard(){
  * If the current word has at least three letters, it should
  * enable the add word button - otherwise it should disable it.
  */
+<<<<<<< HEAD
 function handleLetterClick(index){
   
+=======
+function handleLetterClick(index) {
+    
+  var span = document.getElementById("piece_" + index);
+  var letter = span.innerHTML;
+
+  if( canClickLetter(index) ) {
+   
+   wordInProgress.push(index);
+   var currentWord = document.getElementById("currentWord");
+   currentWord.innerHTML += letter;
+
+   //disable the clicked grid span
+   span.classList.add("disabled");
+
+   //update last clicked span
+   lastClickedSpan = index; 
+  }
+>>>>>>> 98b6097122da7fe41a2961d5cb9e8af0f61a69c6
 }
 
 /**
@@ -80,6 +100,49 @@ function handleLetterClick(index){
  */
 function canClickLetter(index){
 
+  var span = document.getElementById("piece_" + index);
+
+  if (isAdjacent(index) && span.className != "disabled" ) {
+    return true;
+  }
+  else { return false; }
+}
+
+/**
+ * This function checks whether the 
+ * index is adjacent to the index of the 
+ * last clicked span. Returns true if so, 
+ * false otherwise
+ */
+function isAdjacent (index) {
+
+    if(lastClickedSpan == null) {
+      return true;
+    }
+    else {
+      var down = 4;
+      var up = -4;
+      var right = 1;
+      var left = -1;
+      var downRight = 5;
+      var downLeft = 3;
+      var upRight = -3;
+      var upLeft = -5;
+      var difference = lastClickedSpan - index;
+
+      if(difference == down
+        || difference == up
+        || difference == right
+        || difference == left
+        || difference == downRight
+        || difference == downLeft
+        || difference == upRight
+        || difference == upLeft  ) {
+
+          return true;
+      }
+      else { return false; }
+  }
 }
 
 /**
@@ -104,6 +167,7 @@ function startTimer(){
  * Additionally, this function should disable the add word button.
  */
 function addWordToList(){
+<<<<<<< HEAD
   var currentWord = "<li>";
   for (var i = 0; i < wordInProgress.length; i++){
     currentWord += wordInProgress[i]
@@ -115,7 +179,28 @@ function addWordToList(){
     wordsFound.innerHTML += currentWord;
 
     lastClickedSpan = null;
+=======
+  
+  var currentWord = document.getElementById("currentWord").innerHTML;
 
+  if(currentWord.length >= 3) {
+    
+    //add word to list
+    var wordList = document.getElementById("wordList");
+    var wordToAdd = "<li>" + currentWord + "</li>";
+    wordList.innerHTML += wordToAdd;
+>>>>>>> 98b6097122da7fe41a2961d5cb9e8af0f61a69c6
+
+    //re-enable squares
+    lastClickedSpan = null;
+
+    for (var i = 0; i < wordInProgress.length; i++) {
+      var span = document.getElementById("piece_" + wordInProgress[i]);
+      span.classList.remove("disabled");
+    }
+
+    wordInProgress = [];
+  }
 }
 
 /**

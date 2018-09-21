@@ -71,8 +71,8 @@ function canClickLetter(index){
  * timerTimeout variable.
  */
 function startTimer(){
-    secondsLeft = 100000;
-    timerTimout = setTimeout(updateTimer(), 1000);
+    secondsLeft = 180;
+    timerTimout = setTimeout(updateTimer, 1000);
 }
 
 /**
@@ -174,7 +174,7 @@ function updateTimer(){
     var timer = document.getElementById('timer');
     timer.innerHTML= secondsLeft; //Update span inner HTML
 
-    timerTimeout = setTimeout(updateTimer(), 1000);
+    timerTimeout = setTimeout(updateTimer, 1000);
   }
 }
 

@@ -21,13 +21,11 @@ function startGame(){
     createBoard();
     wordInProgress = [];
 
-    document.getElementById('startGame').disabled = true;
-
     //reset gridspans
     lastClickedSpan = null;
 
-    for (var i = 0; i < wordInProgress.length; i++) {
-      var span = document.getElementById("piece_" + wordInProgress[i]);
+    for (var i = 0; i < 16; i++) {
+      var span = document.getElementById("piece_" + i);
       span.classList.remove("disabled");
     }
 
@@ -363,9 +361,6 @@ function rotate(direction){
 if(! window.Promise){
   alert("Browser unsupported: No Promise constructor!");
 } else {
-  // Be sure to attach functions to click listeners down here
-  document.getElementById('startGame').addEventListener('click', startGame);
-
   // If your function needs a parameter, you can declare an inline function like this, and then call
   // the larger function with the correct parameters
   document.getElementById('rotateClock').addEventListener('click', function(){rotate('clockwise')});
@@ -399,6 +394,7 @@ if(! typeof fetch === 'function'){
     dictionary = response;
     console.log('dictionary loaded');
     document.getElementById('fullscreenCard').remove();
+    setTimeout(startGame, 0);
     return dictionary;
   })
 }

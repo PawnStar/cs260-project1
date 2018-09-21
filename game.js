@@ -21,6 +21,8 @@ function startGame(){
     createBoard();
     wordInProgress = [];
 
+    document.getElementById('startGame').disabled = true;
+
     //reset gridspans
     lastClickedSpan = null;
 
@@ -155,8 +157,9 @@ function isAdjacent (index) {
  * timerTimeout variable.
  */
 function startTimer(){
-    secondsLeft = 180;
-    timerTimout = setTimeout(updateTimer, 1000);
+  clearTimeout(timerTimeout);
+  secondsLeft = 180;
+  timerTimout = setTimeout(updateTimer, 1000);
 }
 
 /**
@@ -188,7 +191,7 @@ function addWordToList(){
   if(currentWord.length >= 3) {
 
     //add word to list
-    var wordList = document.getElementById("wordList");
+    var wordList = document.getElementById("wordsFound");
     var wordToAdd = "<li>" + currentWord + "</li>";
     wordList.innerHTML += wordToAdd;
 
@@ -201,6 +204,7 @@ function addWordToList(){
     }
 
     wordInProgress = [];
+    document.getElementById('currentWord').innerHTML = '';
   }
 }
 

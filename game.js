@@ -16,14 +16,7 @@ var timerTimeout = null;
  * clickable again (removes the 'disabled' class), and clears
  * the current word span.  It also should disable the add word button
  */
-function startGame(){
-
-  document.getElementById("addWord").addEventListener('click', addWordToList)
-  
-
-
-
-}
+function startGame(){}
 
 /**
  * This function generates a set of letters and puts them in the
@@ -60,7 +53,7 @@ function handleLetterClick(index) {
 
   if( canClickLetter(index) ) {
    
-   wordInProgress.push(letter);
+   wordInProgress.push(index);
    var currentWord = document.getElementById("currentWord");
    currentWord.innerHTML += letter;
 
@@ -68,16 +61,7 @@ function handleLetterClick(index) {
    span.classList.add("disabled");
 
    //update last clicked span
-   lastClickedSpan = index;
-
-  //  if current word has min 3 letters, enable add word button
-   if(wordInProgress.length >= 3) {
-     document.getElementById(addWord).disabled = false;
-   }
-   else {
-    document.getElementById(addWord).disabled = true;
-   }
-   
+   lastClickedSpan = index; 
   }
 }
 
@@ -155,16 +139,17 @@ function startTimer(){
  */
 function addWordToList(){
   
-  var currentWord = "<li>";
-  for (var i = 0; i < wordInProgress.length; i++){
-    currentWord += wordInProgress[i]
+  var currentWord = document.getElementById("currentWord").innerHTML;
+
+  if(currentWord.length >= 3) {
+    
+
+    //add word to list
+    var wordList = document.getElementById("wordList");
+    var wordToAdd = "<li>" + currentWord + "</li>";
+    wordList.innerHTML += wordToAdd;
+
   }
- 
-  currentWord += "</li>";
-  /**var currentWord = document.getElementById("currentWord");*/
-  var wordsFound = document.getElementById("wordsFound");
-  wordsFound.innerHTML += currentWord;
-  lastClickedSpan = null;
 }
 
 /**
